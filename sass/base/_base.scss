@@ -1,0 +1,59 @@
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+
+/* 
+sama dengan 10 px karena kita menggunakan rem dalam project
+menggunakan 10 px karena memudahkan mengatur width, height dll
+PENTING!! kenapa kok memakai rem?? karena jika memakai pixel, kita lebih mudah mengganti semua settingan hanya dengan merubah 1 parameter
+mengapa kok memakai persentase?? Karena jika browser user memakai settingan font size 20(misalnya) layout tidak berubah
+kenapa kok tidak berubah?? karena menggunakan keseluruhan project dengan REM, 
+yang artinya keseluruhan layout kita menggunakan settingan dasar(root) font size / atau 62.5% itu sendiri 
+*/
+
+html{
+	font-size: 62.5%; 	
+	
+	@include respond(tab-land) { //if lebar layar <= 1200px
+		font-size: 56.25%; // 1 rem = 9px ; 9px/16px = 56.25%
+	}
+	
+	@include respond(tab-port) { //if lebar layar <= 900px
+		font-size: 50%; // 1 rem = 8px ; 8px/16px = 50%
+	}
+	
+	@include respond(big-desktop) { //if lebar layar >= 1800px
+		font-size: 75%; // 1 rem = 12px ; 12px/16px = 75%
+	}
+	
+	/* 
+	PENTING!!
+	urutan tidak boleh terbalik !!
+
+	Karena logikanya jika lebar layar kurang dari 900px (contoh:800px) 
+	maka yang ditampilkan adalah lebar layar 1200px dahulu dan akan tertumpuk(ter-pakai terakhir) oleh lebar layar 900px.
+	Jika urutan terbalik maka lebar layar 900px akan terpakai dahulu dan akan tertumpuk oleh lebar layar 1200px.
+
+	Mengapa font size phone tidak terpakai? Karena hasil 1rem nya akan terlalu kecil. Jadi akan menggunakan settingan rem tablet portrait
+	*/
+	
+}
+body{
+	box-sizing: border-box; // wajib, fungsinya agar border didalam box, bukan diluar
+	padding: 3rem;
+
+	@include respond(tab-port){
+		padding: 0;
+	}
+} 
+
+
+//Ketika di klik drag 
+::selection{
+	background-color: $color-pm;
+	color: $color-white;
+}
